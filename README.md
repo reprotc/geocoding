@@ -17,8 +17,8 @@ O processo de georreferencimento incluiu as etapas de padronização dos endere�
 
 - Para editar a base de dados dos correios - [Diretório Nacional de Endereço - DNE](https://www.correios.com.br/enviar-e-receber/marketing-direto/diretorio-nacional-de-enderecos-dne) - é necessario salvar (em formato csv) os arquivos da pasta 'delimitado' referentes ao local do estudo: em geral, LOG_LOGRADOURO,      LOG_GRANDE USUARIO e LOG BAIRRO). Para facilitar, salve os arquivos com separacao por '@'.
 
--  [Indicar a chave (geocoding API key) do projeto](https://github.com/direcprovisorio/geocoding/blob/f78cc70386aaf658242329340954602071386725/script5_geocoding_googleAPI.R#L31-L33)
-Para utilizar a API do google é necessário [cadastrar o projeto e ativar a API key](https://developers.google.com/maps/documentation/geocoding/start).
+-  Para utilizar a API do google é necessário [cadastrar o projeto e ativar a API key](https://developers.google.com/maps/documentation/geocoding/start). 
+Depois, [indicar no script a chave (geocoding API key) do projeto](https://github.com/direcprovisorio/geocoding/blob/f78cc70386aaf658242329340954602071386725/script5_geocoding_googleAPI.R#L31-L33)
 
 __________________________________________________________________________________________________________
 
