@@ -97,13 +97,14 @@ bdgeral=read.csv('data_2012_2017.csv',na.string="", stringsAsFactors=FALSE)
 
 
 ################################################################################
-bdgeral$BAIRRO = as.character(trim(bdgeral$BAIRES))
-# Objetivo: Recuperar os bairros que estao no CAMPO ENDEREÇO/RUA reparados por *
+# Recuperação do bairro (1) -especifico do SIM 
+#Objetivo: Recuperar os bairros que estao no CAMPO logradouro separados por *
 # Muitos registros que ocorreram fora do rio estão com missing no campo BAIRES 
-#e com informação de bairro no campo ENRES no formato: "Rua_______*bairro"
+#e com informação de bairro no campo ENDRES no formato: "Rua_______*bairro"
 
 bairros3 = NULL
 status = NULL
+
 
 for (i in 1:length(bdgeral$ENDRES)) {
   if (!is.na (bdgeral$ENDRES[i])) {
@@ -118,10 +119,10 @@ for (i in 1:length(bdgeral$ENDRES)) {
 }
 
 ## Unir o campo bairro de BAIRES e aqueles recuperados no campo ENRES 
-bdgeral$BAIRES[bdgeral$BAIRES == ''] <- NA
-bdgeral$BAIRRO=bdgeral$BAIRES
+bdgeral$BAIRRO = trim(as.character(bdgeral[, campobair])
+bdgeral$BAIRRO[bdgeral$BAIRRO == ''] <- NA
 
-bdgeral$BAIRRO = ifelse(is.na(bdgeral$BAIRES),
+bdgeral$BAIRRO = ifelse(is.na(bdgeral$BAIRRO),
                         as.character(bdgeral$bairros3),
                         bdgeral$BAIRRO)
 
@@ -267,7 +268,6 @@ bdgeral$ENDCOMPLE2 = sub("COBERTURA", "", bdgeral$ENDCOMPLE2)
 bdgeral$ENDCOMPLE2 = sub("SN ", "", bdgeral$ENDCOMPLE2)
 bdgeral$ENDCOMPLE2 = sub("FD ", " ", bdgeral$ENDCOMPLE2)
 bdgeral$ENDCOMPLE2 = gsub("[[:digit:]]+", "", bdgeral$ENDCOMPLE2)
-
 bdgeral$ENDCOMPLE2 = gsub("[[:space:]]+", ' ', bdgeral$ENDCOMPLE2)
 bdgeral$ENDCOMPLE2 = trim(bdgeral$ENDCOMPLE2)
 
