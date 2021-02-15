@@ -12,17 +12,14 @@ O processo de georreferencimento incluiu as etapas de padronização dos endere�
  Todos os "dicionários" utilizados são referentes ao Rio de Janeiro, mas podem ser adaptados para outros locais e base de dados.
  [Alguns dicionários contem expressoes regulares](https://rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf).
 
-- Para os bancos com formatos diferentes do SIM, [indicar os nomes das colunas do banco de dados referentes ao campo do endereço (logradouro, bairro etc)](
-https://github.com/direcprovisorio/geocoding/blob/2c2bf37a962be42e7e3e2bd70aaa9533048ff0cd/script1_padronizacaobasica.R#L55-L66)
+- Para os bancos com formatos diferentes do SIM, [indicar os nomes das colunas do banco de dados referentes ao campo do endereço (logradouro, bairro etc)](https://github.com/direcprovisorio/geocoding/blob/f78cc70386aaf658242329340954602071386725/script1_padronizacao.R#L42-L53)
 
 
 - Para editar a base de dados dos correios - [Diretório Nacional de Endereço - DNE](https://www.correios.com.br/enviar-e-receber/marketing-direto/diretorio-nacional-de-enderecos-dne) - é necessario salvar (em formato csv) os arquivos da pasta 'delimitado' referentes ao local do estudo: em geral, LOG_LOGRADOURO,      LOG_GRANDE USUARIO e LOG BAIRRO). Para facilitar, salve os arquivos com separacao por '@'.
 
--  Indicar a chave (API key) do projeto. Para utilizar a API do google é necessário [cadastrar o projeto e ativar a API key](https://developers.google.com/maps/documentation/geocoding/start).
+-  [Indicar a chave (geocoding API key) do projeto](https://github.com/direcprovisorio/geocoding/blob/f78cc70386aaf658242329340954602071386725/script5_geocoding_googleAPI.R#L31-L33)
+Para utilizar a API do google é necessário [cadastrar o projeto e ativar a API key](https://developers.google.com/maps/documentation/geocoding/start).
 
-```#Inserir a chave do projeto 
-gkey = "xxxxxxxxxxxxxxxxxxx"
-```
 __________________________________________________________________________________________________________
 
 ### **Descrição dos scripts**
