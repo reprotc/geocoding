@@ -97,26 +97,13 @@ bdgeral=read.csv('data_2012_2017.csv',na.string="", stringsAsFactors=FALSE)
 
 
 ################################################################################
-# Recuperação do bairro (1) -especifico do SIM 
-#Objetivo: Recuperar os bairros que estao no CAMPO logradouro separados por *
-# Muitos registros que ocorreram fora do rio estão com missing no campo BAIRES 
+# Recuperação do bairro (1) - muito especifico do SIM rj 
+#Objetivo: Recuperar os bairros que estao no campo logradouro separados por *
+# Alguns registros estão com missing no campo BAIRES 
 #e com informação de bairro no campo ENDRES no formato: "Rua_______*bairro"
 
-bairros3 = NULL
-status = NULL
-
-
-for (i in 1:length(bdgeral$ENDRES)) {
-  if (!is.na (bdgeral$ENDRES[i])) {
-    status[i] = str_detect(as.character(bdgeral$ENDRES[i]), "[*]")
-    if (status[i] == TRUE) {
-      bdgeral$bairros3[i] = unlist(strsplit(as.character(bdgeral$ENDRES[i]), 
-                                            "*",fixed = TRUE))[2]
-    } else {
-      bdgeral$bairros3[i] = NA
-  }
-}
-}
+bdgeral$ENDRUA = trim(as.character(bdgeral[, campoend]))
+bdgeral$bairro3 = vapply(strsplit(bdgeral$ENDRUA, "[*]"), "[", "", 2)
 
 ## Unir o campo bairro de BAIRES e aqueles recuperados no campo ENRES 
 bdgeral$BAIRRO = trim(as.character(bdgeral[, campobair])
@@ -125,8 +112,8 @@ bdgeral$BAIRRO[bdgeral$BAIRRO == ''] <- NA
 bdgeral$BAIRRO = ifelse(is.na(bdgeral$BAIRRO),
                         as.character(bdgeral$bairros3),
                         bdgeral$BAIRRO)
-
-## Padronizar o campo bairro 
+###########
+## Padronizar basica do campo bairro 
 # Incluindo, caixa alta, retirar espaços duplos, digitos e pontuação  
 bdgeral$BAIRRO = gsub('[[:digit:]]+', " ", bdgeral$BAIRRO) 
 bdgeral$BAIRRO = gsub("[[:punct:]]+", " ", bdgeral$BAIRRO)
@@ -286,7 +273,7 @@ bdgeral$BAIRRO_F= ifelse(bdgeral$status_bairro==FALSE &
 
 
 #####################Padronização nome da rua##################################
-endereco = trim(as.character(bdgeral[, campoend]))
+endereco = trim(as.character(bdgeral$ENDRUA))
 endereco=stringi::stri_trans_general(endereco, "Latin-ASCII") #remover acentos
 endereco = str_to_upper(endereco)
 endereco = gsub("[[:punct:]]+", " ", endereco) #remover pontuação 
@@ -433,14 +420,13 @@ bdgeral$ENDCASA_t = casa
 bdgeral$ENDCASA = str_extract(bdgeral$ENDCASA_t, "[[:digit:]]+")
 
 # formatar NAs
-bdgeral$BAIRES[bdgeral$BAIRES == ''] <- NA
 bdgeral$BAIRRO[bdgeral$BAIRRO == ''] <- NA
 bdgeral$BAIRRO_F[bdgeral$BAIRRO_F == ''] <- NA
-bdgeral$ENDRES[bdgeral$ENDRES == ''] <- NA
 bdgeral$ENDRUA[bdgeral$ENDRUA == ''] <- NA
 bdgeral$ENDRUA_num[bdgeral$ENDRUA_num == ''] <- NA
 bdgeral$ENDNUMERO[bdgeral$ENDNUMERO == ''] <- NA
-bdgeral$CEPRES[bdgeral$CEPRES == ''] <- NA
+bdgeral$ENDCEP=bdgeral[, campocep]
+bdgeral$ENDCEP[bdgeral$ENDCEP == ''] <- NA
 
 #Cria variavel indicando o tipo de endereço 
 #Completo: com informacao rua, numero e bairro 
