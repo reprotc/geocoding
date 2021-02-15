@@ -1,9 +1,5 @@
 # Funcoes (fora dos pacotes) utilizadas nos scripts
 
-#par ou impar
-e_par <- function(x)
-  x %% 2 == 0
-
 # palavras/nomes mais/menos frequentes
 freqfunc_less <- function(x, n) {
   tail(sort(table(unlist(
@@ -137,10 +133,10 @@ rul39 = gdata::trim(ifelse(stringr::str_detect(var, "S\\b") &
               stringr::str_length(var) > 4,
               paste(var, gsub("S\\b", " ", var), sep = ";"),NA))
 
-
+#Titulos mais frequentes no rio. Outra opção é utilizar todos os titulos descritos no DNE = aumentará o tempo de edição
 titulos = unique(
   c(
-    "GENERAL", 
+    "GENERAL",
     "PROFESSOR",
     "PROFESSORA",
     "MAJOR",
@@ -155,6 +151,7 @@ titulos = unique(
     "BISPO",
     "REGENTE",
     "RADIALISTA",
+    "JORNALISTA",
     "PRINCESA",
     "VEREADOR",
     "TENENTE",
@@ -203,5 +200,10 @@ rm(titulos, rul1, rul2, rul3, rul4, rul5, rul6, rul7, rul8, rul9, rul10,
 return(data)
 
 }
+
+
+#par ou impar
+e_par <- function(x)
+  x %% 2 == 0
 
 
