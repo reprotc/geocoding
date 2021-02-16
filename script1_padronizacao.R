@@ -69,7 +69,7 @@ dicionario_bairro$to = gsub("[[:space:]]+", ' ', dicionario_bairro$to)
 dicionario_bairro$from = trim(str_to_upper(dicionario_bairro$from))
 dicionario_bairro$to = trim(str_to_upper(dicionario_bairro$to))
 
-## Importar dicionario de ruas  (formato: 'from' rua grafia errada ; 
+## Importar dicionario de logradouro  (formato: 'from' rua grafia inconsistente ; 
 #'to' rua grafia correta )
 dicionario = read.csv("dicionario_titulos.csv")
 dicionario$from = gsub("[[:space:]]+", ' ', dicionario$from)
@@ -97,7 +97,7 @@ bdgeral=read.csv('data_2012_2017.csv',na.string="", stringsAsFactors=FALSE)
 
 
 ################################################################################
-# Recuperação do bairro (1) - muito especifico do SIM rj 
+# Recuperação do bairro (1) - Erro muito especifico do banco SIM rj 
 #Objetivo: Recuperar os bairros que estao no campo logradouro separados por *
 # Alguns registros estão com missing no campo BAIRES 
 #e com informação de bairro no campo ENDRES no formato: "Rua_______*bairro"
@@ -135,19 +135,20 @@ bdgeral$BAIRRO = gsub("[[:space:]]+", ' ', bdgeral$BAIRRO)
 
 
 ##verificar se os bairros recuperados e padronizados estao na 
-#lista oficial de bairros do Rio de Janeiro
+#lista de bairros do Rio de Janeiro 
+#(considerando os bairros oficiais entre 2012 a 2018)
 status_bairro = NULL
 for (i in 1:length(bdgeral$BAIRRO))
 {
   bdgeral$status_bairro[i] = bdgeral$BAIRRO[i] %in% bairros_lista
 }
 
-#Recuperacao bairro (2)
+#Recuperacao bairro (2) -
 #Alguns bairros estao como NA no campo BAIRES, mas aparecem no campo COMPLRES
 #Objetivo: tentar recuperar os bairros que estao no complemento do endereço
 # Extrair o bairro, excluindo os demais campos referentes ao bloco, casa, lote, 
 #quadra no campo complemento.  
-# Outra opção seria extrair o campo do complemento que esta na lista de bairros,
+# Outra opção seria extrair as strings que estao na lista de bairros.
 #mas pode gerar erro, dado que nomes de ruas podem ser iguais 
 # aos nomes de bairros em locais distintos
 
@@ -164,9 +165,9 @@ complemento2 = gsub("[[:punct:]]+", " ", complemento2)
 complemento2 = gsub("[[:space:]]+",' ', complemento2) 
 
 #Padronizar os campos nao relacionados ao bairro para facilitar a exclusao 
-# Motivo para essa solucao: a extracao (sem exclusao)dos nomes de bairros no 
-#complemento pode  geral problemas se o nome de um bairro tambem aparece 
-#em nomes de rua em bairros distinto: p.ex, Travessa Humaita, Colegio
+# Motivo: a extracao direta dos nomes de bairros no 
+#complemento pode geral problemas, se o nome de um bairro tambem aparece 
+#em nomes de rua em bairros distintos: p.ex, Travessa Humaita, Colegio
 
 for (i in seq_len(nrow(dicionario_complemento))) {
   complemento2 =  gsub(dicionario_complemento$from[i],
@@ -193,6 +194,8 @@ bdgeral$ENDCOMPLE2 = trim(gsub("BAIRRO", "", bdgeral$ENDCOMPLE2))
 
 ##############################################################
 #Excluir campos nao relacionados ao bairro
+#(outra opção mais simples: bdgeral$ENDCOMPLE2 = sub("[[:alnum:]]+[[:digit:]]+", "", bdgeral$ENDCOMPLE2)
+                      
 bdgeral$ENDCOMPLE2 = sub("APT [[:alnum:]]+", "", bdgeral$ENDCOMPLE2)
 bdgeral$ENDCOMPLE2 = sub("AP [[:alnum:]]+", "", bdgeral$ENDCOMPLE2)
 bdgeral$ENDCOMPLE2 = sub("APT[[:digit:]]+", "", bdgeral$ENDCOMPLE2)
