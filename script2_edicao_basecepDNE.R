@@ -22,6 +22,7 @@ if (!require(stringdist))install.packages('stringdist'); library(stringdist)
 if (!require(tidyr))install.packages('tidyr'); library(tidyr)
 if(!require(dplyr)) install.packages('dplyr'); library(dplyr)
 if (!require(data.table))install.packages('data.table'); library(data.table)
+if(!require(stringi)) install.packages('stringi'); library(stringi)
 
 #################################################################################
 ##Importar dicionario de numeros 
@@ -42,16 +43,16 @@ dicionario_bairro$to = trim(str_to_upper(dicionario_bairro$to))
 
 ################################################################################
 # Abrir os arquivos dos correios
-base_cep_log<- fread("LOG_LOGRADOURO_RJ.csv", sep = "@", 
+base_cep_log= fread("LOG_LOGRADOURO_RJ.csv", sep = "@", 
                      encoding = "Latin-1", stringsAsFactors=FALSE)
 base_cep_GRUlog= fread("LOG_GRANDE_USUARIO.csv", sep = "@", 
                        encoding = "Latin-1", stringsAsFactors=FALSE)
-base_cep_bairro<- fread("LOG_BAIRRO.csv", sep = "@", 
+base_cep_bairro= fread("LOG_BAIRRO.csv", sep = "@", 
                         encoding = "Latin-1", stringsAsFactors=FALSE)
 
-base_cep_log_alt<- fread("LOG_VAR_LOG.csv", sep = "@", encoding = "Latin-1", 
+base_cep_log_alt= fread("LOG_VAR_LOG.csv", sep = "@", encoding = "Latin-1", 
                          stringsAsFactors=FALSE)
-base_cep_bairro_alt<- fread("LOG_VAR_BAI.csv", sep = "@", encoding = "Latin-1",
+base_cep_bairro_alt= fread("LOG_VAR_BAI.csv", sep = "@", encoding = "Latin-1",
                             stringsAsFactors=FALSE)
 
 base_cep_GRUlog=subset(base_cep_GRUlog, base_cep_GRUlog$UFE_SG=="RJ")
@@ -85,6 +86,9 @@ base_cep_bairro_alt=base_cep_bairro_alt%>%
   group_by(BAI_NU) %>%
   mutate(VDB_TXID = paste0('VDB_TX', row_number())) %>%
   spread(VDB_TXID, VDB_TX)
+
+#A junção de todos os nomes alternativos foi feita apenas para facilitar a indentificacao
+# dos nomes que aparecem na lista ou coluna com as variacoes. 
 
 base_cep_log_alt$VLO_TX2= paste(base_cep_log_alt$VLO_TX2, 
                                 base_cep_log_alt$VLO_TX3, 
@@ -199,6 +203,7 @@ base_cep_RJ$ENDRUA_base_alt2 = str_to_upper(base_cep_RJ$ENDRUA_base_alt2)
 #ENDRUA:converter digitos para numeros por extenso por meio do dicionário 
 #de numeros 1 a 100 - depois criar function
 base_cep_RJ$ENDRUA_base_num=base_cep_RJ$ENDRUA_base
+
 for (i in seq_len(nrow(dicionario_numbers))) {
   base_cep_RJ$ENDRUA_base_num=  gsub(dicionario_numbers$from[i], 
                                      dicionario_numbers$to[i],
@@ -229,6 +234,7 @@ dicionario_numbers$to = paste0('[[:space:]]',dicionario_numbers$to,'[[:space:]]'
                                "^",dicionario_numbers$to,"$")
                                
 dicionario_numbers$from = str_to_upper(paste(' ',dicionario_numbers$from,' '))
+
 # com Wnum: comecar de 199 a 1, para evitar problemas como VINTE E SEIS = VINTE E 6 
 dicionario_numbers=purrr::map_df(dicionario_numbers, rev) 
 
