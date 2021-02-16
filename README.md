@@ -12,7 +12,7 @@ O processo de georreferencimento incluiu as etapas de padronização dos endere�
  Todos os "dicionários" utilizados são referentes ao Rio de Janeiro, mas podem ser adaptados para outros locais e base de dados.
  [Alguns dicionários contêm expressões regulares](https://rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf).
 
-- Para os bancos com formatos diferentes do SIM: [indicar os nomes das colunas do banco de dados referentes ao campo do endereço (logradouro, bairro etc)](https://github.com/direcprovisorio/geocoding/blob/f78cc70386aaf658242329340954602071386725/script1_padronizacao.R#L42-L53)
+- Para os bancos com formatos diferentes do SIM: [indicar os nomes das colunas do banco de dados referentes aos campos do endereço (logradouro, bairro etc)](https://github.com/direcprovisorio/geocoding/blob/00e4e007b41e06209c8e4fc36329198836c61e17/script1_padronizacao.R#L38-L53)
 
 
 - Para editar a base de dados dos correios - [Diretório Nacional de Endereço - DNE](https://www.correios.com.br/enviar-e-receber/marketing-direto/diretorio-nacional-de-enderecos-dne) - é necessario salvar (em formato csv) os arquivos da pasta 'delimitado' referentes ao local do estudo: em geral, LOG_LOGRADOURO,      LOG_GRANDE USUARIO e LOG BAIRRO). Para facilitar, salve os arquivos com separacao por '@'.
