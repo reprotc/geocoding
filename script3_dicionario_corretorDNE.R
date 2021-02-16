@@ -38,21 +38,21 @@ names(base_cep_RJ)[2]="to"
 #Importar lista de tipos de logradouro no local do estudo
 tipo=read.csv(file="tipos_rj.csv")
 
-#Aplicar a funcao dic_erros aos nomes oficiais de logradouros do DNE
-#para construir o dicionario corretor
+#Aplicar a funcao dic_erros nos nomes oficiais de logradouros do DNE
+#para construir o dicionario corretor:
 
 erros=dic_erros(base_cep_RJ$to)
 
 # Depois, unir o dicionario com a base de dados dos correios para verificar
 # e eliminar os nomes repetidos que nao podem ser utilizados na correcao
-# por exemplo, uma das regras de identificao de erros inclui a exclusao 
-# de preposicoes (de, da, do) dos nomes oficiais dos logradouros. 
-# Essa regra aplicada a "Rua da uniao" (p.ex, Mangueira) gera "Rua uniao".
+# por exemplo, uma das regras de identificao de erros exclui as 
+#  preposicoes (de, da, do) dos nomes oficiais dos logradouros. 
+# Essa regra aplicada a "Rua da uniao" (p.ex, no bairro Mangueira) gera "Rua uniao".
 # No entanto, essa substituicao nao pode ser considerada, pois ha outras ruas 
-# oficias sem a preposicao "da" como "Rua uniao" (p.ex Acari)
+# oficias sem a preposicao "da" como "Rua uniao" (p.ex em Acari)
 
 #Como o bairro do endereco oficial pode estar errado, que dificulta 
-# a substituicao por logradouro e bairro, entao a solucao utilizacao foi excluir
+# a substituicao por logradouro e bairro, entao a solucao utilizado foi excluir
 # as substituicoes (erros criados) e correcoes que aparecem 
 # em outros nomes oficiais de logradouros
 
@@ -138,7 +138,7 @@ bdgeral$ENDCOMPLETO_F = ifelse(
     ),
     ifelse(
       bdgeral$ENDTIPO_FULL == "SEM NUMERO" &
-        bdgeral$ENDTIPO_COMPLEMENTO == "LOTE",
+        bdgeral$ENDTIPO_COMPLEMENTO == "LOTE",# todos os registros foram verificados 
       paste(
         bdgeral$ENDRUA_rules,
         ",",
