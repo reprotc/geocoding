@@ -1,5 +1,5 @@
 # **Geocoding**
-*Scripts em R referentes ao paper "Improving geocoding matching rates of structured addresses in Rio de Janeiro".*
+*Scripts em R referentes ao paper ["mproving geocoding matching rates of structured addresses in Rio de Janeiro, Brazil"](https://www.scielosp.org/article/csp/2021.v37n7/e00039321/).
  
 __________________________________________________________________________________________________________
 
@@ -10,12 +10,12 @@ O processo de georreferencimento incluiu as etapas de padronização dos endere�
 
 - Baixar os arquivos de dados (endereços, dados referência, dicionários etc) no diretório escolhido. 
  Todos os "dicionários" utilizados são referentes ao Rio de Janeiro, mas podem ser adaptados para outros locais e base de dados.
- [Alguns dicionários contêm expressões regulares](https://rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf).
+ [Alguns dicionários contêm expressões regulares](https://raw.githubusercontent.com/rstudio/cheatsheets/master/regex.pdf).
 
 - Para os bancos com formatos diferentes do SIM: [indicar os nomes das colunas do banco de dados referentes aos campos do endereço (logradouro, bairro etc)](https://github.com/direcprovisorio/geocoding/blob/00e4e007b41e06209c8e4fc36329198836c61e17/script1_padronizacao.R#L38-L53)
 
 
-- Para editar a base de dados dos correios - [Diretório Nacional de Endereço - DNE](https://www.correios.com.br/enviar-e-receber/marketing-direto/diretorio-nacional-de-enderecos-dne) - é necessario salvar (em formato csv) os arquivos da pasta 'delimitado' referentes ao local do estudo: em geral, LOG_LOGRADOURO,      LOG_GRANDE USUARIO e LOG BAIRRO). Para facilitar, salve os arquivos com separacao por '@'.
+- Para editar a base de dados dos correios - [Diretório Nacional de Endereço - DNE](http://shopping.correios.com.br/wbm/store/script/wbm2400902p01.aspx?cd_company=ErZW8Dm9i54=&cd_department=SsNp3FlaUpM=) - é necessario salvar (em formato csv) os arquivos da pasta 'delimitado' referentes ao local do estudo: em geral, LOG_LOGRADOURO,      LOG_GRANDE USUARIO e LOG BAIRRO). Para facilitar, salve os arquivos com separacao por '@'.
 
 -  Para utilizar a API do google é necessário [cadastrar o projeto e ativar a API key](https://developers.google.com/maps/documentation/geocoding/start). 
 Depois, [indicar no script a chave (geocoding API key) do projeto](https://github.com/direcprovisorio/geocoding/blob/f78cc70386aaf658242329340954602071386725/script5_geocoding_googleAPI.R#L31-L33)
