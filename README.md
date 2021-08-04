@@ -1,5 +1,5 @@
 # **Geocoding**
-*Scripts em R referentes ao paper ["mproving geocoding matching rates of structured addresses in Rio de Janeiro, Brazil"](https://www.scielosp.org/article/csp/2021.v37n7/e00039321/).
+*Scripts em R referentes ao paper ["Improving geocoding matching rates of structured addresses in Rio de Janeiro, Brazil"](https://www.scielosp.org/article/csp/2021.v37n7/e00039321/).
  
 __________________________________________________________________________________________________________
 
