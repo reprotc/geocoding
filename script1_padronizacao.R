@@ -282,7 +282,8 @@ endereco = str_to_upper(endereco)
 endereco = gsub("[[:punct:]]+", " ", endereco) #remover pontuação 
 endereco = gsub("[[:space:]]+", " ", endereco) #remover espaços duplos  
 
-#Correcao do tipo:
+#Correcao do tipo: Função adaptada de Silveira et al (2017): https://www.scielo.br/j/ress/a/Zd8DBfbVhVwGXZRvVVxPm3M/abstract/?lang=pt
+   
 # Separa os endereços por elementos/palavras 
 #Compara somente o primeiro elemento com a primeira coluna em "tipolog" 
 #substitui pela segunda coluna em "tipolog"
