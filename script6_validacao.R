@@ -145,8 +145,7 @@ bdgeral$ENDBAIRRO_g= trim(bdgeral$ENDBAIRRO_g)
 # Edita o nome da rua retornada pelo google para comparacao com o original
 endereco=bdgeral$ENDRUA_g
 
-#Correcao do tipo: Função adaptada de Silveira et al (2017): https://www.scielo.br/j/ress/a/Zd8DBfbVhVwGXZRvVVxPm3M/abstract/?lang=pt
-
+#Correcao do tipo: 'Função' (for loop endnovo) adaptada de Silveira et al (2017): https://www.scielo.br/j/ress/a/Zd8DBfbVhVwGXZRvVVxPm3M/abstract/?lang=pt
 # Separa os endereços por elementos/palavras 
 #Compara somente o primeiro elemento com a primeira coluna em "tipolog" 
 #substitui pela segunda coluna em "tipolog"
